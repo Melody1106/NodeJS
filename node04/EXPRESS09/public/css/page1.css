@@ -1,0 +1,32 @@
+body{
+    background-image: url(../img/photo01.jpeg);
+    background-size: cover;
+}
+.row{
+    display: flex;
+    width: 180px;
+}
+.col{
+    width: 60px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.col:not(:first-child){
+    border-left: 1px solid #000;
+}
+.row{
+    background: paleturquoise;
+}
+.row:nth-child(odd){
+    background: pink;
+}
+.row:nth-child(even){
+    background: palegreen;
+}
+.active{
+    background: #666;
+    color: #fff;
+}
