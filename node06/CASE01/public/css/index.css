@@ -16,5 +16,16 @@
     .title{
         width: calc(100% - var(--sn-width) - var(--sort-width) - var(--money-width));
     }
-    
+}
+.list{
+    background-color: #f4f4f4;
+    user-select: none;
+    cursor: pointer;
+    &:nth-child(even){
+        background-color: rgb(221, 221, 221);
+    }
+    &:hover{
+        background-color: rgb(112, 112, 112);
+        color: #fff;
+    }
 }
