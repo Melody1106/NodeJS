@@ -1,0 +1,20 @@
+.unit{
+    --sn-width: 40px;
+    --sort-width: 60px;
+    --money-width: 80px;
+    position: relative;
+    display: flex;
+    .sn{
+        width: var(--sn-width);
+    }
+    .sort{
+        width: var(--sort-width);
+    }
+    .money{
+        width: var(--money-width);
+    }
+    .title{
+        width: calc(100% - var(--sn-width) - var(--sort-width) - var(--money-width));
+    }
+    
+}

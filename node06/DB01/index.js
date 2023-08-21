@@ -8,19 +8,19 @@ app.get("/", (req, res)=>{
   res.send("首頁");
 });
 
-app.get("/d/:id",(req,rea)=>{
-    const id = req.params.id;
-    connection.execute(
-      "SELECT * FROM `sort` WHERE `id` = ?",
-      [id],
-      (error, results)=>{
-        let sort = results.map(item=>{
-          return {sn: item.id, item: item.name}
-        })
-        res.json({sort})
-      }
-    )
-  })
+// app.get("/d/:id",(req,res)=>{
+//     const id = req.params.id;
+//     connection.execute(
+//       "SELECT * FROM `sort` WHERE `id` = ?",
+//       [id],
+//       (error, results)=>{
+//         let sort = results.map(item=>{
+//           return {sn: item.id, itemName: item.name}
+//         })
+//         res.json({sort})
+//       }
+//     );
+//   })
 
 app.listen(3000, ()=>{
   console.log("服務啟動於 http://localhost:3000/");
