@@ -1,7 +1,9 @@
 const express = require('express');
 const moment = require("moment");
+const multer = require("multer");
 const connection = require("../db");
 const router = express.Router();
+const upload = multer();
 
 router.get('/', function(req, res, next) {
 //   res.send("導向今天的日期");
@@ -34,7 +36,6 @@ router.get('/d/:date', async (req, res, next)=>{
 });
 
 router.post("/", (req, res)=>{
-    // res.send("寫入 指定日期的消費");
     console.log(req.body);
     let title = req.body.title;
     let money = parseInt(req.body.money);
@@ -54,15 +55,62 @@ router.post("/", (req, res)=>{
     );
 });
 
-router.put("/", (req, res)=>{
-    res.json({msg: "修改 指定日期ˊ消費"})
+router.put("/", upload.none(), async(req, res)=>{
+   let result = await updateData(req.body).then((data)=>{
+        return 1;
+   }).catch((error)=>{
+        return 0;
+   });
+   res.json({result})
 });
 
-router.delete("/", (req, res)=>{
-    res.json({msg:"刪除 指定日期的消費"});
+router.delete("/",upload.none(), async(req, res)=>{
+    let result = await deleteData(req.body).then((data)=>{
+        return 1;
+   }).catch((error)=>{
+        return 0;
+   });
+   res.json({result})
 });
 
 module.exports = router;
+
+function deleteData(data){
+    
+    let id = parseInt(data.id);
+    return new Promise((resolve, reject)=>{   
+        connection.execute(
+            "DELETE FROM expense WHERE `expense`.`id` = ?",
+            [id],
+            (error, result)=>{
+                if(error){
+                    reject(error);
+                    return false
+                }
+                resolve(result);
+            }
+        );
+    });
+}
+function updateData(data){
+    let title = data.title;
+    let sort = parseInt(data.sort);
+    let money = parseInt(data.money);
+    let id = parseInt(data.id);
+    return new Promise((resolve, reject)=>{   
+        connection.execute(
+            "UPDATE `expense` SET `title` = ?, `sort` = ?, `money` = ? WHERE `expense`.`id` = ?",
+            [title, sort, money, id],
+            (error, result)=>{
+                if(error){
+                    reject(error);
+                    return false
+                }
+                resolve(result);
+            }
+        );
+    });
+}
 
 
 function getDateData(date){

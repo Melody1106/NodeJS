@@ -65,14 +65,42 @@ router.post('/', (req, res)=>{
         }
     )
 })
-router.put('/', (req, res)=>{
-    res.send("修改 指定日期消費")
-})
+
+router.put("/", upload.none() ,async (req, res)=>{
+    let result = await updateData(req.body).then((data)=>{
+        return 1;
+    }).catch((error)=>{
+        return 0;
+    });
+    res.json({result});
+});
+
 router.delete('/', (req, res)=>{
     res.send("刪除 指定日期消費")
 })
 
 module.exports = router;
+
+function updateData(data){
+    let title = data.title;
+    let sort = parseInt(data.sort);
+    let money = parseInt(data.money);
+    let id = parseInt(data.id);
+    return new Promise((resolve, reject)=>{   
+        connection.execute(
+            "UPDATE `expense` SET `title` = ?, `sort` = ?, `money` = ? WHERE `expense`.`id` = ?",
+            [title, sort, money, id],
+            (error, result)=>{
+                if(error){
+                    reject(error);
+                    return false
+                }
+                resolve(result);
+            }
+        );
+    });
+}
+
 
 function getDateData(date){
     return new Promise((resolve, reject)=>{
