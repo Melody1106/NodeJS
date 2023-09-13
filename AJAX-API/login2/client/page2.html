@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container mt-3">
+        <div class="form ">
+            <div class="input-group mb-1">
+                <span class="input-group-text">Account</span>
+                <input name="account" type="text" class="form-control">
+            </div>
+            <div class="input-group mb-1">
+                <span class="input-group-text">Password</span>
+                <input name="password" type="password" class="form-control">
+            </div>
+            <div class="d-flex">
+                <div class="btn btn-primary btn-login ms-auto">Login</div>
+            </div>
+        </div>
+        <div class="main d-flex">
+            <div>
+                <div class="head">
+                    <img src="" alt="img_here">
+                </div>
+                <div class="btn btn-primary btn-logout ms-auto">Logout</div>
+            </div>
+            <div>
+                <h1>NAME_HERE</h1>
+                <div class="account fs-3">ACCOUNT_HERE</div>
+                <div class="mail">MAIL_HERE</div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+  <script>
+    let token, user;
+    let appKey = "benbenbenTest01Token"
+
+    const btnLogin = document.querySelector(".byn-login")
+    const btnLogout = document.querySelector(".byn-logout")
+    const divForm =document.querySelector(".form")
+    const divMain =document.querySelector(".main")
+
+    let API_CHECK_LOGIN = "http://localhost:3000/checkLogin"
+    let API_LOGIN = "http://localhost:3000/login"
+    let API_LOGOUT = "http://localhost:3000/logout"
+
+    init();
+
+    function init(){
+        token = localStorage.getItem(appKey);
+        //判斷顯示表單或顯示畫面
+        if(!token){
+            //如果沒有token
+            divForm.classList.remove("d-none")
+        }else{
+           (async ()=>{
+            await getData(API_CHECK_LOGIN, {}).then(
+                token = data.token;
+            ).catch(
+                error=>{alert(error.message)}
+            );
+            if(token){
+                user= jwt_decode(token)
+                localStorage.setItem(appKey, token)
+                setMain();
+            }
+           })()
+        }
+        //-----
+
+        $(".btn-login").on("click", (e)=>{
+            let API = "http://localhost:3000/login";
+            let account = $("[name=account]").val();
+            let password = $("[name=password]").val();
+           
+        });
+
+        $(".btn-logout").on("click", (e)=>{
+            let API = "http://localhost:3000/logout";
+            
+        });
+    }
+
+    function getData(){}
+
+    function setForm(){
+        // $(".main h1").html("")
+        // $(".main .mail").html("")
+        // $(".main .account").html("")
+        // $(".main .head img").attr("src", "")
+        // $(".main").addClass("d-none")
+        // $(".form").removeClass("d-none")
+    }
+    function setMain(){
+        // $(".main h1").html(user.name)
+        // $(".main .mail").html(user.mail)
+        // $(".main .account").html(user.account)
+        // $(".main .head img").attr("src", user.head)
+        // $(".main").removeClass("d-none")
+        // $(".form").addClass("d-none")
+    }
+  </script>
+</html>
