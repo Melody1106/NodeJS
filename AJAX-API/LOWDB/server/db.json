@@ -9,19 +9,20 @@
       "head": "https://randomuser.me/api/portraits/men/44.jpg"
     },
     {
-      "id": "81e32609-3a75-46dd-bd57-0d36b8415964",
+      "id": "1c5c0e26-30c3-449c-9483-32c6679107f8",
       "account": "user1",
       "password": "a1234",
-      "name": "kityy",
-      "head": "https://randomuser.me/api/portraits/women/29.jpg",
-      "mail": "henk@gmail.com"
+      "name": "James R James",
+      "mail":"tracy.mills@example.com",
+      "head": "https://www.fakepersongenerator.com/Face/male/male20171084063591431.jpg"
     },
     {
-      "id": "f3a8d3eb-c250-4eb8-934e-5e10252ef70c",
-      "account": "user4",
-      "password": "a123445",
-      "name": "David",
-      "head": "https://randomuser.me/api/portraits/men/52.jpg"
+      "id": "22ce126b-610a-43e2-a506-0f21c8aadbb2",
+      "account": "user2",
+      "password": "a1234",
+      "name": "Brandie Burke",
+      "mail": "brandie.burke@example.com",
+      "head": "https://randomuser.me/api/portraits/women/80.jpg"
     }
   ],
   "products": [

@@ -97,10 +97,10 @@ app.post("/api/users/logout",checkToken, async (req, res)=>{
 app.post("/api/users/status",checkToken,(req, res)=>{
     const token = jwt.sign(
         {
-            account: req.user.account,
-            name: req.user.name,
-            mail: req.user.mail,
-            head: req.user.head,
+          account: req.decoded.account,
+            name: req.decoded.name,
+            mail: req.decoded.mail,
+            head: req.decoded.head,
         },
         secretKey, 
         {expiresIn: "30m"});
@@ -116,7 +116,7 @@ app.post("/api/users", upload.none(),async(req, res)=>{
     await usersAdd(req).then(result=>{
         user = result;
     }).catch(err=>{
-        err = error;
+        error = err;
     })
     if(error){
         res.status(400).json(
@@ -199,7 +199,7 @@ function usersAdd(req){
             return false;
         }
         let id = uuidv4();
-        db.get("user").push({id, account, password, name, head}).write();
+        db.get("user").push({id, account, password, name,mail, head}).write();
         resolve({id});
     })
 }
