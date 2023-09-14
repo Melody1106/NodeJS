@@ -1,13 +1,20 @@
 {
-  "user": {
-    "d6602240-e85a-4082-b1e9-92d7e412faf4": {
+  "user": [
+    {
       "id": "d6602240-e85a-4082-b1e9-92d7e412faf4",
       "account": "ben",
       "password": "a12345",
       "name": "Ben Chen",
       "head": "https://randomuser.me/api/portraits/men/44.jpg"
+    },
+    {
+      "id": "701eb96b-d36c-47c6-9f20-3d2dc167d920",
+      "account": "user1",
+      "password": "a1234",
+      "name": "kityy",
+      "head": "https://randomuser.me/api/portraits/women/29.jpg"
     }
-  },
+  ],
   "products": [
     {
       "id": "06f15555-5710-41f1-8a50-bf5622cf377d",
