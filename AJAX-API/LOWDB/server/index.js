@@ -15,8 +15,8 @@ const db = low(adapter);
 
 // 設定部份
 let whitelist = [
-    "http://127.0.0.1:5500",
-    "http://localhost:5500",
+    "http://127.0.0.1:3005",
+    "http://localhost:3005",
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     undefined
@@ -66,6 +66,7 @@ app.post("/api/users/login", upload.none(),async (req, res)=>{
         {
             account: user.account,
             name: user.name,
+            mail: user.mail,
             head: user.head
         },
         secretKey, 
@@ -81,7 +82,8 @@ app.post("/api/users/logout",checkToken, async (req, res)=>{
         {
             account: req.decoded.account,
             name: req.decoded.name,
-            head: req.decoded.head
+            mail: req.decoded.mail,
+            head: req.decoded.head,
         }, 
         secretKey, 
         {expiresIn: "-10s"});
@@ -97,7 +99,8 @@ app.post("/api/users/status",checkToken,(req, res)=>{
         {
             account: req.user.account,
             name: req.user.name,
-            head: req.user.head
+            mail: req.user.mail,
+            head: req.user.head,
         },
         secretKey, 
         {expiresIn: "30m"});
@@ -177,21 +180,26 @@ app.post("/api/users", upload.none(),async(req, res)=>{
   });
 
  
-  app.listen(3000, ()=>{
+  app.listen(3005, ()=>{
     console.log("server is running");
   });
 
 function usersAdd(req){
     return new Promise((resolve, reject)=>{
-        const {account, password, name, head} = req.body;
+        const {account, password, name,mail, head} = req.body;
         //檢查使用者是否已存在
-     let result =  db.get("user").find({account}).value()
-     if(result){
-        reject({error: "帳號已經被使用"})
-        return false;
-     }
+        let result = db.get("user").find({account}).value();
+        if(result){
+            reject({error: "帳號已經被使用"})
+            return false;
+        }
+        result = db.get("user").find({mail}).value();
+        if(result){
+            reject({error: "信箱已經被使用"})
+            return false;
+        }
         let id = uuidv4();
-        db.get("user").push({id,account, password, name, head}).write();
+        db.get("user").push({id, account, password, name, head}).write();
         resolve({id});
     })
 }
@@ -224,7 +232,6 @@ function checkToken(req, res, next){
       jwt.verify(token, secretKey, (error, decoded)=>{
         if(error){
           res.status(400).json({
-            status: "fail",
             message:"登入驗證失效 請重新登入"})
           return false;
         }

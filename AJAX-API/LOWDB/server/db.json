@@ -5,14 +5,23 @@
       "account": "ben",
       "password": "a12345",
       "name": "Ben Chen",
+      "mail": "BenChen@email.com",
       "head": "https://randomuser.me/api/portraits/men/44.jpg"
     },
     {
-      "id": "701eb96b-d36c-47c6-9f20-3d2dc167d920",
+      "id": "81e32609-3a75-46dd-bd57-0d36b8415964",
       "account": "user1",
       "password": "a1234",
       "name": "kityy",
-      "head": "https://randomuser.me/api/portraits/women/29.jpg"
+      "head": "https://randomuser.me/api/portraits/women/29.jpg",
+      "mail": "henk@gmail.com"
+    },
+    {
+      "id": "f3a8d3eb-c250-4eb8-934e-5e10252ef70c",
+      "account": "user4",
+      "password": "a123445",
+      "name": "David",
+      "head": "https://randomuser.me/api/portraits/men/52.jpg"
     }
   ],
   "products": [
