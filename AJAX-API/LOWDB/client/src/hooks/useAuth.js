@@ -32,8 +32,10 @@ const useAuth = ()=>{
                     authorization: token
                 }
             });
+           
             setToken(null);
             setUser(undefined);
+            localStorage.removeItem(appKey);
         }catch(error){
             alert(error.response.data.error.error);
         }
